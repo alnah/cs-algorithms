@@ -50,17 +50,30 @@ Rules of Thumbs:
 """
     Go uses IntroSort: a hybrid sorting algorithm that optimizes performance.
      - It begins with QuickSort for fast average-case sorting.
-     - It switches to HeapSort when recursion depth exceeds a level based on log2(input size) to avoid worst-case O(n²).
+     - It switches to HeapSort when recursion depth exceeds a level based on log2(input size) to avoid worst-case O(n²)
      - It falls back to InsertionSort for small partitions, as it is efficient for small datasets.
      - It is not stable, meaning the relative order of equal elements is not preserved.
      - It is in-place, meaning it does not require extra memory for sorting, unlike Timsort. 
 """
 
 
+def remove_duplicates(array: list[int]) -> list[int]:
+    """
+    Remove duplicates without altering the order, that's why we don't use a set.
+    - O(2*n)
+    """
+    deduped_map, deduped_list = {}, []
+    for e in array:
+        deduped_map[e] = None
+    for e in deduped_map:
+        deduped_list.append(e)
+    return deduped_list
+
+
 def binary_search(target: int, array: list[int]) -> bool:
     """
     Divide the search range in half until it finds the element.
-    - 0(log(n)).
+    - 0(log(n))
     - In practice: only work on a pre-sorted list.
     """
     start, end = 0, len(array) - 1
@@ -78,8 +91,8 @@ def binary_search(target: int, array: list[int]) -> bool:
 def bubble_sort(nums: list[int]) -> list[int]:
     """
     Iterate over and over an array to swap adjacent elements until its sorted.
-    - Sorted array: O(n).
-    - Reversed array: O(n^2).
+    - Sorted array: O(n)
+    - Reversed array: O(n^2)
     - In pratice: never used.
     """
     swap, end = True, len(nums)
