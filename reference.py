@@ -27,6 +27,21 @@ Big-O complexity:
 - Hell:
     * generating all permutations: O(n!)
 
+Computers are good to solve (P) polynomial problems.
+- Polynomial algorithms (P) ✅:
+    * O(1), O(n), O(n*log(n)), O(n^2), O(n^3), ... O(n^k)
+    * Runtime: doesn't grow faster than n^k, where k is a constant,
+    and n the size of the input.
+
+- Exponential algorithms ❌:
+    * O(2^n), O(3^n), ... O(k^n)
+    * Runtime: grows faster.
+    
+- Factorial algorithms ☢️:
+    * O(n!)
+    * Runtime: terrible, we only use them in cryptography, and security.
+    * Future: quantic computation?
+
 Rules of Thumbs:
 - use hashing whenever possible
 - sort once, then search
