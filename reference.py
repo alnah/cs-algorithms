@@ -9,18 +9,33 @@ From slow to fast:
 - quadratic: n ** n
 - factorial: !n
 
-Excellent:
-- hashmap lookup: O(1)
-Great:
-- binary search in sorted array: 0(log(n))
-Fair:
-- iteration: O(n)
-- sequence of iterations: 0(nm)
-Horrible:
-- nested iterations: 0(n^2)
-- recursive branching: 0(2^n)
-Hell:
-- generating all permutations: O(n!)
+Big-O complexity:
+- Excellent:
+    * hashmap lookup: O(1)
+    
+- Great:
+    * binary search in sorted array: 0(log(n))
+
+- Fair:
+    * iteration: O(n)
+    * sequence of iterations: 0(n*m) 💪 best on smallest sets
+    * merge sort: O(n*log(n)) 💪 best on largest sets
+
+- Horrible:
+    * nested iterations: 0(n**2)
+    * recursive branching: 0(2**n)
+    
+- Hell:
+    * generating all permutations: O(n!)
+
+Rules of Thumbs:
+- use hashing whenever possible
+- sort once, then search
+- avoid nested loops, unless dealing with small inputs
+- recursion is dangerous unless you can:
+    * early stop
+    * eliminate branch
+    * memoize
 """
 
 
