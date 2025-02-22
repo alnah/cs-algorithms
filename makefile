@@ -35,4 +35,4 @@ test: env
 
 run:
 	$(info 🚀 RUNNING APP...)
-	python main.py
+	python sorting.py

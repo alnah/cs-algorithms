@@ -26,11 +26,17 @@ Hell:
 
 
 def main():
-    print(get_avg_brand_followers([
-    ["cosmofan1010", "cosmogirl", "billjane321"],
-    ["cosmokiller", "gr8", "cosmojane3"],
-    ["iloveboots", "paperthin"]
-], "cosmo"))
+    print(
+        get_avg_brand_followers(
+            [
+                ["cosmofan1010", "cosmogirl", "billjane321"],
+                ["cosmokiller", "gr8", "cosmojane3"],
+                ["iloveboots", "paperthin"],
+            ],
+            "cosmo",
+        )
+    )
+
 
 def find_minimum(nums: list[int]) -> int | None:
     minimum = float("inf")
@@ -166,6 +172,7 @@ def does_name_exist(
     full_names = set(f"{f} {l}" for f, l in zip(first_names, last_names))
     return full_name in full_names
 
+
 def get_avg_brand_followers(all_handles: list[list[str]], brand_name: str) -> float:
     if not brand_name:
         raise ValueError("Brand name can't by empty")
@@ -177,14 +184,16 @@ def get_avg_brand_followers(all_handles: list[list[str]], brand_name: str) -> fl
             if brand_name in influencer:
                 count += 1
     return count / len(all_handles)
-       
+
+
 def find_last_name(names_dict, first_name) -> str | None:
     if not names_dict or not first_name:
         return None
     return names_dict.get(first_name, None)
 
+
 def binary_search(target: int, array: list[int]) -> bool:
-    start, end = 0, len(array) -1
+    start, end = 0, len(array) - 1
     while start <= end:
         median = (start + end) // 2
         if array[median] == target:
@@ -194,6 +203,7 @@ def binary_search(target: int, array: list[int]) -> bool:
         elif array[median] < target:
             start = median + 1
     return False
+
 
 def count_names(list_of_lists: list[list[str]], target_name: str) -> int:
     names = []
@@ -205,6 +215,7 @@ def count_names(list_of_lists: list[list[str]], target_name: str) -> int:
             count += 1
     return count
 
+
 def remove_duplicates(nums: list[int]) -> list[int]:
     deduped_map, deduped_list = {}, []
     for n in nums:
@@ -212,6 +223,7 @@ def remove_duplicates(nums: list[int]) -> list[int]:
     for n in deduped_map:
         deduped_list.append(n)
     return deduped_list
+
 
 if __name__ == "__main__":
     main()
