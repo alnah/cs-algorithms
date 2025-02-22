@@ -1,3 +1,5 @@
+import math
+import heapq
 
 """
 Remember:
@@ -36,6 +38,26 @@ Rules of Thumbs:
     * early stop
     * eliminate branch
     * memoize
+- don't use educational purpose algorithms in reaf-life, but rely on the language implementation.
+"""
+
+
+"""
+    Python uses Timsort: a hybrid sorting algorithm optimized for real-world data.
+    - It is a combination of MergeSort and InsertionSort.
+    - It is stable, meaning it maintains the relative order of equal elements.
+    - It adapts well to partially sorted data, achieving better-than-O(n log n) performance in some cases.
+    - It performs MergeSort on large partitions and falls back to InsertionSort for small subarrays.
+    - It requires additional memory for merging, unlike in-place sorting algorithms like IntroSort.
+"""
+
+"""
+    Go uses IntroSort: a hybrid sorting algorithm that optimizes performance.
+     - It begins with QuickSort for fast average-case sorting.
+     - It switches to HeapSort when recursion depth exceeds a level based on log2(input size) to avoid worst-case O(n²).
+     - It falls back to InsertionSort for small partitions, as it is efficient for small datasets.
+     - It is not stable, meaning the relative order of equal elements is not preserved.
+     - It is in-place, meaning it does not require extra memory for sorting, unlike Timsort. 
 """
 
 
