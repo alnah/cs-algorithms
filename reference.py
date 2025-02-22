@@ -159,3 +159,34 @@ def insertion_sort(nums: list[int]) -> list[int]:
             nums[j-1], nums[j] = nums[j], nums[j-1]
             j -= 1
     return nums
+
+def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
+    """
+    A divide-and-conquer sorting algorithm.
+    - O(n log(n)) average case
+    - O(n^2) when already sorted data with bad pivot choice
+    - In practice: often used due to in-place sorting and average performance.
+    """
+
+    def partition(nums: list[int], low: int, high: int) -> int:
+        """
+        Places the pivot in the correct position.
+        - Chooses the last element as pivot.
+        - Moves all smaller elements to the left of pivot.
+        - Moves all greater elements to the right.
+        """
+        pivot = nums[high]  
+        i = low - 1  
+        for j in range(low, high):
+            if nums[j] <= pivot:
+                i += 1
+                nums[i], nums[j] = nums[j], nums[i]  
+        nums[i + 1], pivot = pivot, nums[i + 1]
+        return i + 1
+
+    # Recursion starts here
+    if low < high:
+        pivot = partition(nums, low, high)
+        quick_sort(nums, low, pivot - 1)  
+        quick_sort(nums, pivot + 1, high)  
+    return nums 
