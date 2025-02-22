@@ -57,33 +57,33 @@ Rules of Thumbs:
 """
 
 
-def remove_duplicates(array: list[int]) -> list[int]:
+def remove_duplicates(nums: list[int]) -> list[int]:
     """
     Remove duplicates without altering the order, that's why we don't use a set.
     - O(2*n)
     """
     deduped_map, deduped_list = {}, []
-    for e in array:
-        deduped_map[e] = None
-    for e in deduped_map:
-        deduped_list.append(e)
+    for n in nums:
+        deduped_map[n] = None
+    for n in deduped_map:
+        deduped_list.append(n)
     return deduped_list
 
 
-def binary_search(target: int, array: list[int]) -> bool:
+def binary_search(target: int, nums: list[int]) -> bool:
     """
     Divide the search range in half until it finds the element.
     - 0(log(n))
     - In practice: only work on a pre-sorted list.
     """
-    start, end = 0, len(array) - 1
+    start, end = 0, len(nums) - 1
     while start <= end:
         median = (start + end) // 2
-        if array[median] == target:
+        if nums[median] == target:
             return True
-        elif array[median] > target:
+        elif nums[median] > target:
             end = median - 1
-        elif array[median] < target:
+        elif nums[median] < target:
             start = median + 1
     return False
 
@@ -142,3 +142,20 @@ def merge_sort(nums: list[int]):
     median = len(nums) // 2
     sorted_left, sorted_right = nums[:median], nums[median:]
     return merge(merge_sort(sorted_left), merge_sort(sorted_right))
+
+def insertion_sort(nums: list[int]) -> list[int]:
+    """
+    Insertion sort works by iterating through the list and building a sorted 
+    portion one element at a time. At each step, the current element is compared 
+    with the previous ones and inserted into its correct position by shifting 
+    larger elements to the right.
+    - O(n**2): for big datasets.
+    - O(n): fir small or nearly sorted datasets.
+    """
+    length = len(nums)
+    for i in range(1, length):
+        j = i
+        while j > 0 and nums[j-1] > nums[j]:
+            nums[j-1], nums[j] = nums[j], nums[j-1]
+            j -= 1
+    return nums
