@@ -163,9 +163,10 @@ def insertion_sort(nums: list[int]) -> list[int]:
 def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
     """
     A divide-and-conquer sorting algorithm.
-    - O(n log(n)) average case
+    - O(n log(n)) when shuffled data
     - O(n^2) when already sorted data with bad pivot choice
     - In practice: often used due to in-place sorting and average performance.
+    - Used in production, but less stable than merge sort.
     """
 
     def partition(nums: list[int], low: int, high: int) -> int:
@@ -181,7 +182,7 @@ def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
             if nums[j] <= pivot:
                 i += 1
                 nums[i], nums[j] = nums[j], nums[i]  
-        nums[i + 1], pivot = pivot, nums[i + 1]
+        nums[i + 1], nums[high] = nums[high], nums[i + 1]
         return i + 1
 
     # Recursion starts here
@@ -190,3 +191,20 @@ def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
         quick_sort(nums, low, pivot - 1)  
         quick_sort(nums, pivot + 1, high)  
     return nums 
+
+def selection_sort(nums: list[int]) -> list[int]:
+    """
+    A simple comparison-based sorting algorithm. Finds the smallest element in the
+    unsorted part and swaps it with the first element. Repeats the process for the
+    remaining unsorted elements.
+    - O(n**2)
+    - In practice: more efficient than bubble sort, memory-friendly, not for production.
+    """
+    end = len(nums)
+    for i in range(end):
+        sm_i = i
+        for j in range(sm_i+1, end):
+            if nums[j] < nums[sm_i]:
+                sm_i = j
+        nums[i], nums[sm_i] = nums[sm_i], nums[i]
+    return nums
