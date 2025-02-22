@@ -1,6 +1,3 @@
-import math
-import heapq
-
 """
 Remember:
 - Log(16, base 2) means "How many times 2 need to be multiplied by itself to react 16?"
