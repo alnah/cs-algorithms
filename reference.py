@@ -11,7 +11,7 @@ From slow to fast:
 Big-O complexity:
 - Excellent:
     * hashmap lookup: O(1)
-    
+
 - Great:
     * binary search in sorted array: 0(log(n))
 
@@ -23,7 +23,7 @@ Big-O complexity:
 - Horrible:
     * nested iterations: 0(n**2)
     * recursive branching: 0(2**n)
-    
+
 - Hell:
     * generating all permutations: O(n!)
 
@@ -37,7 +37,6 @@ Rules of Thumbs:
     * memoize
 - don't use educational purpose algorithms in reaf-life, but rely on the language implementation.
 """
-
 
 """
     Python uses Timsort: a hybrid sorting algorithm optimized for real-world data.
@@ -60,9 +59,9 @@ Rules of Thumbs:
 
 def binary_search(target: int, array: list[int]) -> bool:
     """
-        Divide the search range in half until it finds the element
-        - 0(log(n))
-        - In practice: only work on a pre-sorted list
+    Divide the search range in half until it finds the element
+    - 0(log(n))
+    - In practice: only work on a pre-sorted list
     """
     start, end = 0, len(array) - 1
     while start <= end:
@@ -78,34 +77,36 @@ def binary_search(target: int, array: list[int]) -> bool:
 
 def bubble_sort(nums: list[int]) -> list[int]:
     """
-        Iterate over and over an array to swap adjacent elements until its sorted.
-        - Sorted array: O(n)
-        - Reversed array: O(n^2)
-        - In pratice: never used
+    Iterate over and over an array to swap adjacent elements until its sorted.
+    - Sorted array: O(n)
+    - Reversed array: O(n^2)
+    - In pratice: never used
     """
     swap, end = True, len(nums)
     while swap:
         swap = False
         for i in range(1, end):
-            if nums[i-1] > nums[i]:
-                nums[i-1], nums[i] = nums[i], nums[i-1]
+            if nums[i - 1] > nums[i]:
+                nums[i - 1], nums[i] = nums[i], nums[i - 1]
                 swap = True
         end -= 1
     return nums
 
+
 def merge_sort(nums: list[int]):
     """
-        Divide the problem into smaller problems, and recursively solve the smaller ones
-        Combine the results of the smaller problems to solve the bigger problem
-        - O(n log(n))
-        - In pratice: greedy with memory, slow in small n's, so use it for big sets
+    Divide the problem into smaller problems, and recursively solve the smaller ones
+    Combine the results of the smaller problems to solve the bigger problem
+    - O(n log(n))
+    - In pratice: greedy with memory, slow in small n's, so use it for big sets
     """
     if len(nums) < 2:
         return nums
     median = len(nums) // 2
     sorted_left, sorted_right = nums[:median], nums[median:]
     return merge(merge_sort(sorted_left), merge_sort(sorted_right))
-    
+
+
 def merge(left: list[int], right: list[int]) -> list[int]:
     merged, i, j = [], 0, 0
     # Compare elements and add the smaller one to merged list
@@ -126,4 +127,3 @@ def merge(left: list[int], right: list[int]) -> list[int]:
         j += 1
 
     return merged
-
