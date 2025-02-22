@@ -59,9 +59,9 @@ Rules of Thumbs:
 
 def binary_search(target: int, array: list[int]) -> bool:
     """
-    Divide the search range in half until it finds the element
-    - 0(log(n))
-    - In practice: only work on a pre-sorted list
+    Divide the search range in half until it finds the element.
+    - 0(log(n)).
+    - In practice: only work on a pre-sorted list.
     """
     start, end = 0, len(array) - 1
     while start <= end:
@@ -78,9 +78,9 @@ def binary_search(target: int, array: list[int]) -> bool:
 def bubble_sort(nums: list[int]) -> list[int]:
     """
     Iterate over and over an array to swap adjacent elements until its sorted.
-    - Sorted array: O(n)
-    - Reversed array: O(n^2)
-    - In pratice: never used
+    - Sorted array: O(n).
+    - Reversed array: O(n^2).
+    - In pratice: never used.
     """
     swap, end = True, len(nums)
     while swap:
@@ -95,10 +95,10 @@ def bubble_sort(nums: list[int]) -> list[int]:
 
 def merge_sort(nums: list[int]):
     """
-    Divide the problem into smaller problems, and recursively solve the smaller ones
-    Combine the results of the smaller problems to solve the bigger problem
+    Divide the problem into smaller problems, and recursively solve the smaller ones.
+    Combine the results of the smaller problems to solve the bigger problem.
     - O(n log(n))
-    - In pratice: greedy with memory, slow in small n's, so use it for big sets
+    - In pratice: greedy with memory, slow in small n's, so use it for big sets.
     """
     if len(nums) < 2:
         return nums
@@ -108,8 +108,12 @@ def merge_sort(nums: list[int]):
 
 
 def merge(left: list[int], right: list[int]) -> list[int]:
+    """
+        Compare elements and add the smaller one to merged list.
+        Add any remaining elements from first list.
+        Add any remaining elements from second list.
+    """
     merged, i, j = [], 0, 0
-    # Compare elements and add the smaller one to merged list
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
             merged.append(left[i])
@@ -117,13 +121,10 @@ def merge(left: list[int], right: list[int]) -> list[int]:
         else:
             merged.append(right[j])
             j += 1
-    # Add any remaining elements from first list
     while i < len(left):
         merged.append(left[i])
         i += 1
-    # Add any remaining elements from second list
     while j < len(right):
         merged.append(right[j])
         j += 1
-
     return merged
