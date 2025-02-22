@@ -100,31 +100,32 @@ def merge_sort(nums: list[int]):
     - O(n log(n))
     - In pratice: greedy with memory, slow in small n's, so use it for big sets.
     """
+
+    def merge(left: list[int], right: list[int]) -> list[int]:
+        """
+        Compare elements and add the smaller one to merged list.
+        Add any remaining elements from first list.
+        Add any remaining elements from second list.
+        """
+        merged, i, j = [], 0, 0
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                merged.append(left[i])
+                i += 1
+            else:
+                merged.append(right[j])
+                j += 1
+        while i < len(left):
+            merged.append(left[i])
+            i += 1
+        while j < len(right):
+            merged.append(right[j])
+            j += 1
+        return merged
+
+    # Merge sort starts here
     if len(nums) < 2:
         return nums
     median = len(nums) // 2
     sorted_left, sorted_right = nums[:median], nums[median:]
     return merge(merge_sort(sorted_left), merge_sort(sorted_right))
-
-
-def merge(left: list[int], right: list[int]) -> list[int]:
-    """
-        Compare elements and add the smaller one to merged list.
-        Add any remaining elements from first list.
-        Add any remaining elements from second list.
-    """
-    merged, i, j = [], 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[j]:
-            merged.append(left[i])
-            i += 1
-        else:
-            merged.append(right[j])
-            j += 1
-    while i < len(left):
-        merged.append(left[i])
-        i += 1
-    while j < len(right):
-        merged.append(right[j])
-        j += 1
-    return merged
