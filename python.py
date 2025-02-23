@@ -1,82 +1,10 @@
-"""
-Remember:
-- Log(16, base 2) means "How many times 2 need to be multiplied by itself to react 16?"
-
-From slow to fast:
-- logarithmic: log(n, b)
-- linear: (a * n) + b
-- quadratic: n ** n
-- factorial: !n
-
-Big-O complexity:
-- Excellent:
-    * hashmap lookup: O(1)
-
-- Great:
-    * binary search in sorted array: 0(log(n))
-
-- Fair:
-    * iteration: O(n)
-    * sequence of iterations: 0(n*m) 💪 best on smallest sets
-    * merge sort: O(n*log(n)) 💪 best on largest sets
-
-- Horrible:
-    * nested iterations: 0(n**2)
-    * recursive branching: 0(2**n)
-
-- Hell:
-    * generating all permutations: O(n!)
-
-Computers are good to solve (P) polynomial problems.
-- Polynomial algorithms (P) ✅:
-    * O(1), O(n), O(n*log(n)), O(n^2), O(n^3), ... O(n^k)
-    * Runtime: doesn't grow faster than n^k, where k is a constant,
-    and n the size of the input.
-
-- Exponential algorithms ❌:
-    * O(2^n), O(3^n), ... O(k^n)
-    * Runtime: grows faster.
-    
-- Factorial algorithms ☢️:
-    * O(n!)
-    * Runtime: terrible, we only use them in cryptography, and security.
-    * Future: quantic computation?
-
-Rules of Thumbs:
-- use hashing whenever possible
-- sort once, then search
-- avoid nested loops, unless dealing with small inputs
-- recursion is dangerous unless you can:
-    * early stop
-    * eliminate branch
-    * memoize
-- don't use educational purpose algorithms in reaf-life, but rely on the language implementation.
-"""
-
-"""
-    Python uses Timsort: a hybrid sorting algorithm optimized for real-world data.
-    - It is a combination of MergeSort and InsertionSort.
-    - It is stable, meaning it maintains the relative order of equal elements.
-    - It adapts well to partially sorted data, achieving better-than-O(n log n) performance in some cases.
-    - It performs MergeSort on large partitions and falls back to InsertionSort for small subarrays.
-    - It requires additional memory for merging, unlike in-place sorting algorithms like IntroSort.
-"""
-
-"""
-    Go uses IntroSort: a hybrid sorting algorithm that optimizes performance.
-     - It begins with QuickSort for fast average-case sorting.
-     - It switches to HeapSort when recursion depth exceeds a level based on log2(input size) to avoid worst-case O(n²)
-     - It falls back to InsertionSort for small partitions, as it is efficient for small datasets.
-     - It is not stable, meaning the relative order of equal elements is not preserved.
-     - It is in-place, meaning it does not require extra memory for sorting, unlike Timsort. 
-"""
-
-
 def remove_duplicates(nums: list[int]) -> list[int]:
     """
     Remove duplicates without altering the order, that's why we don't use a set.
     - O(2*n)
     """
+    if not nums:
+        return []
     deduped_map, deduped_list = {}, []
     for n in nums:
         deduped_map[n] = None
@@ -91,6 +19,8 @@ def binary_search(target: int, nums: list[int]) -> bool:
     - 0(log(n))
     - In practice: only work on a pre-sorted list.
     """
+    if not nums:
+        raise ValueError("Nums can't be empty")
     start, end = 0, len(nums) - 1
     while start <= end:
         median = (start + end) // 2
@@ -110,6 +40,8 @@ def bubble_sort(nums: list[int]) -> list[int]:
     - Reversed array: O(n^2)
     - In pratice: never used.
     """
+    if not nums:
+        return []
     swap, end = True, len(nums)
     while swap:
         swap = False
@@ -128,7 +60,8 @@ def merge_sort(nums: list[int]):
     - O(n log(n))
     - In pratice: greedy with memory, slow in small n's, so use it for big sets.
     """
-
+    if not nums:
+        return []
     def merge(left: list[int], right: list[int]) -> list[int]:
         """
         Compare elements and add the smaller one to merged list.
@@ -158,22 +91,26 @@ def merge_sort(nums: list[int]):
     sorted_left, sorted_right = nums[:median], nums[median:]
     return merge(merge_sort(sorted_left), merge_sort(sorted_right))
 
+
 def insertion_sort(nums: list[int]) -> list[int]:
     """
-    Insertion sort works by iterating through the list and building a sorted 
-    portion one element at a time. At each step, the current element is compared 
-    with the previous ones and inserted into its correct position by shifting 
+    Insertion sort works by iterating through the list and building a sorted
+    portion one element at a time. At each step, the current element is compared
+    with the previous ones and inserted into its correct position by shifting
     larger elements to the right.
     - O(n**2): for big datasets.
     - O(n): fir small or nearly sorted datasets.
     """
+    if not nums:
+        return []
     length = len(nums)
     for i in range(1, length):
         j = i
-        while j > 0 and nums[j-1] > nums[j]:
-            nums[j-1], nums[j] = nums[j], nums[j-1]
+        while j > 0 and nums[j - 1] > nums[j]:
+            nums[j - 1], nums[j] = nums[j], nums[j - 1]
             j -= 1
     return nums
+
 
 def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
     """
@@ -183,7 +120,8 @@ def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
     - In practice: often used due to in-place sorting and average performance.
     - Used in production, but less stable than merge sort.
     """
-
+    if not nums:
+        return []
     def partition(nums: list[int], low: int, high: int) -> int:
         """
         Places the pivot in the correct position.
@@ -191,21 +129,22 @@ def quick_sort(nums: list[int], low: int, high: int) -> list[int]:
         - Moves all smaller elements to the left of pivot.
         - Moves all greater elements to the right.
         """
-        pivot = nums[high]  
-        i = low - 1  
+        pivot = nums[high]
+        i = low - 1
         for j in range(low, high):
             if nums[j] <= pivot:
                 i += 1
-                nums[i], nums[j] = nums[j], nums[i]  
+                nums[i], nums[j] = nums[j], nums[i]
         nums[i + 1], nums[high] = nums[high], nums[i + 1]
         return i + 1
 
     # Recursion starts here
     if low < high:
         pivot = partition(nums, low, high)
-        quick_sort(nums, low, pivot - 1)  
-        quick_sort(nums, pivot + 1, high)  
-    return nums 
+        quick_sort(nums, low, pivot - 1)
+        quick_sort(nums, pivot + 1, high)
+    return nums
+
 
 def selection_sort(nums: list[int]) -> list[int]:
     """
@@ -215,11 +154,48 @@ def selection_sort(nums: list[int]) -> list[int]:
     - O(n**2)
     - In practice: more efficient than bubble sort, memory-friendly, not for production.
     """
+    if not nums:
+        return []
     end = len(nums)
     for i in range(end):
         sm_i = i
-        for j in range(sm_i+1, end):
+        for j in range(sm_i + 1, end):
             if nums[j] < nums[sm_i]:
                 sm_i = j
         nums[i], nums[sm_i] = nums[sm_i], nums[i]
     return nums
+
+
+def fibonacci(n: int) -> int:
+    """
+    Polynomial implementation of fibonacci sequence, non-recursive, and very fast!
+    - O(n)
+    """
+    if n < 0:
+        raise ValueError("Fibonacci sequence must start from 0 or more")
+    if n == 0:
+        return 0
+    if n == 1:
+        return 1
+    grandparent, parent, current = 0, 1, 0
+    for n in range(n - 1):
+        current = grandparent + parent
+        grandparent = parent
+        parent = current
+    return current
+
+def powerset(input_list: list[int]) -> list[list[int]]:
+    """
+    Exponential implementation of powerset to get all possobilities from a set.
+    25 items would take 9 hours, 40 items 34 years!
+    - O(2^n) 
+    """
+    if not input_list:
+        return [[]]
+    final =  []
+    head, tail = input_list[0], input_list[1:]
+    subsets = powerset(tail)
+    for s in subsets:
+        final.append([head] + s)
+        final.append(s)
+    return final
