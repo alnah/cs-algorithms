@@ -7,8 +7,8 @@
 
 ### Growth Rates: From Slow to Fast
 
-1. **Logarithmic**: \( \log_b(n) \) → Very efficient
-2. **Linear**: \( a \cdot n + b \) → Grows steadily
+1. **Logarithmic**: \( log_b(n) \) → Very efficient
+2. **Linear**: \( a \* n + b \) → Grows steadily
 3. **Quadratic**: \( n^n \) → Slow
 4. **Factorial**: \( n! \) → Extremely slow
 
@@ -22,13 +22,13 @@
 
 #### **Great** 🏆
 
-- **Binary search in sorted array**: \( O(\log(n)) \) → Fast!
+- **Binary search in sorted array**: \( O(log(n)) \) → Fast!
 
 #### **Fair** ⚖️
 
 - **Iteration**: \( O(n) \) → Reasonable.
-- **Sequence of iterations**: \( O(n \cdot m) \) → Good for small datasets. 💪
-- **Merge Sort**: \( O(n \log(n)) \) → Best for large datasets. 💪
+- **Sequence of iterations**: \( O(n \* m) \) → Good for small datasets. 💪
+- **Merge Sort**: \( O(n log(n)) \) → Best for large datasets. 💪
 
 #### **Horrible** 😨
 
@@ -45,7 +45,7 @@
 
 #### **Polynomial Algorithms (P) ✅**
 
-- Examples: \( O(1) \), \( O(n) \), \( O(n \log(n)) \), \( O(n^2) \), \( O(n^3) \), … \( O(n^k) \)
+- Examples: \( O(1) \), \( O(n) \), \( O(n log(n)) \), \( O(n^2) \), \( O(n^3) \), … \( O(n^k) \)
 - **Runtime**: Grows at most as \( n^k \), where \( k \) is a constant.
 - **Computers are good at solving these!**
 
