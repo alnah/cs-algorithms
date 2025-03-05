@@ -184,9 +184,10 @@ def fibonacci(n: int) -> int:
         parent = current
     return current
 
+
 def powerset(input_list: list[int]) -> list[list[int]]:
     """
-    Exponential implementation of powerset to get all possobilities from a set.
+    Exponential implementation of powerset to get all possibilities from a set.
     25 items would take 9 hours, 40 items 34 years!
     - O(2^n) 
     """
@@ -199,3 +200,120 @@ def powerset(input_list: list[int]) -> list[list[int]]:
         final.append([head] + s)
         final.append(s)
     return final
+
+
+def tsp(cities: list[int], paths: list[list[int]], dist: int) -> bool:
+    """
+    Check if any tour (permutation) of cities has total distance < dist.
+    - Exponential: O(n!)
+    """
+    def helper(res: list[list[int]], arr: list[int], n: int) -> list[list[int]]:
+        """
+        Recursively generate permutations (Heap's algorithm).
+        - Exponential: O(n!)
+        """
+        if n == 1:
+            tmp: list[int] = arr.copy()
+            res.append(tmp)
+        else:
+            for i in range(n):
+                res = helper(res, arr, n - 1)
+                if n % 2 == 1:
+                    arr[n - 1], arr[i] = arr[i], arr[n - 1]
+                else:
+                    arr[0], arr[n - 1] = arr[n - 1], arr[0]
+        return res
+
+    def permutations(arr: list[int]) -> list[list[int]]:
+        """
+        Return all permutations of the list.
+        - Exponential: O(n!)
+        """
+        res: list[list[int]] = []
+        res = helper(res, arr, len(arr))
+        return res
+
+    # Starts here
+    all_paths: list[list[int]] = permutations(cities)
+    
+    for path in all_paths:
+        total: int = 0
+        for i in range(len(path) - 1):
+            total += paths[path[i]][path[i + 1]]
+        
+        if total < dist:
+            return True
+    
+    return False
+
+
+def verify_tsp(paths: list[list[int]], dist: int, actual_path: list[int]) -> bool:
+    """
+    Verify if the distance of actual_path is less than dist.
+    - O(n) where n is the length of actual_path
+    """
+    total: int = 0
+    for i in range(len(actual_path)):
+        if i != 0:
+            total += paths[actual_path[i - 1]][actual_path[i]]
+    return total < dist
+
+
+def get_num_guesses(length: int) -> int:
+    """
+    Compute total guesses for strings of length 1 to length (26 letters).
+    - O(n)
+    """
+    total: int = 0
+    for n in range(1, length + 1):
+        total += 26 ** n
+    return total
+
+
+def prime_factors(n: int) -> list[int]:
+    """
+    Return the prime factors of n.
+    - Worst-case: O(sqrt(n))
+    """
+    factors: list[int] = []
+
+    while n % 2 == 0:
+        factors.append(2)
+        n //= 2
+
+    i: int = 3
+    while i * i <= n:
+        while n % i == 0:
+            factors.append(i)
+            n //= i
+        i += 2
+
+    if n > 2:
+        factors.append(n)
+
+    return factors
+
+
+def subset_sum(nums: list[int], target: int) -> bool:
+    """
+    Check if any subset of nums sums to target.
+    - Exponential: O(2^n)
+    """
+    def find_subset_sum(nums: list[int], target: int, index: int) -> bool:
+        """
+        Recursive helper for subset sum problem.
+        - Exponential: O(2^n)
+        """
+        if target == 0:
+            return True
+
+        if index < 0:
+            return False
+
+        if nums[index] > target:
+            return find_subset_sum(nums, target, index - 1)
+
+        return find_subset_sum(nums, target, index - 1) or find_subset_sum(nums, target - nums[index], index - 1)
+
+    # Start here
+    return find_subset_sum(nums, target, len(nums) - 1)
